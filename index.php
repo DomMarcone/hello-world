@@ -13,7 +13,7 @@ body
 
 .dom-category
 {
-	width: 100%;
+	width: 99.5%;
 	transition-duration: 0.25s;
 	height: 40px;
 	line-height: 40px;
@@ -27,59 +27,102 @@ body
 	text-shadow: 0 0 16px black;
 }
 
-@media screen and (min-width: 640px)
+.dom-content
 {
-	.dom-category
-	{
-		transform: rotate(-90deg);
-		-ms-transform: rotate(-90deg);
-	}
+	display: none;
+	color: black;
+	/*scroll-direcion: horizontal;*/
+	white-space: nowrap;
+	overflow: auto;
 }
+
+.dom-image
+{
+	height: 300px;
+	/*width: 400px;*/
+}
+
 </style>
 <script>
 
-function getItemByNumber(num)
+function start()
 {
-	switch(num)
-	{
-		case 0 :
-			return document.getElementById("dom-bio");
-		
-		case 1 :
-			return document.getElementById("dom-skills");
-			
-		case 2 :
-			return document.getElementById("dom-projects");
-			
-		case 3 : 
-			return document.getElementById("dom-art");
+	var c = document.get
+	
+}
+
+function getNameByNumber(num)
+{
+	switch(num){
+	case 0 : 
+		return "dom-bio";
+	case 1 :
+		return "dom-skills";
+	case 2 :
+		return "dom-projects";
+	case 3 :
+		return "dom-art";
+	case 4 : 
+		return "dom-travel";
 	}
-	return "ERROR!";
+	return "ERROR!"
 }
 
 function collapseAll()
 {
-	for(var x = 0; x < 4; x++){
-		var y = getItemByNumber(x);
+	for(var x = 0; x < 5; x++){
+		var name = getNameByNumber(x);
+		var y = document.getElementById(name);
+		var z = document.getElementById(name + "-content");
 		y.style.height = "40px";
 		y.style.backgroundColor = "#222";
+		z.style.display = "none";
 	}
 }
 
 function expand(item)
 {
-	var cat = getItemByNumber(item);
+	var name = getNameByNumber(item);
+	var cat = document.getElementById(name);
+	var con = document.getElementById(name + "-content");
 	collapseAll();
-	cat.style.height = (window.innerHeight-160)+ "px";
+	cat.style.height = (window.innerHeight-200)+ "px";
 	cat.style.backgroundColor = "#666";
+	con.style.display = "block";
 }
 
 </script>
 </head>
-<body>
-	<div class="dom-category" onclick="expand(0);" id="dom-bio">Bio</div>
-	<div class="dom-category" onclick="expand(1);" id="dom-skills">Skills</div>
-	<div class="dom-category" onclick="expand(2);" id="dom-projects">Programming</div>
-	<div class="dom-category" onclick="expand(3);" id="dom-art">Art</div>
+<body onload="start()">
+	<div class="dom-category" onclick="expand(0);" id="dom-bio">Bio
+		<div class="dom-content" id="dom-bio-content">
+		</div>
+	</div>
+	
+	<div class="dom-category" onclick="expand(1);" id="dom-skills">Skills
+		<div class="dom-content" id="dom-skills-content">
+		</div>
+	</div>
+	
+	<div class="dom-category" onclick="expand(2);" id="dom-projects">Programming
+		<div class="dom-content" id="dom-projects-content">
+		</div>
+	</div>
+	
+	<div class="dom-category" onclick="expand(3);" id="dom-art">Art
+		<div class="dom-content" id="dom-art-content">
+		</div>
+	</div>
+	
+	<div class="dom-category" onclick="expand(4);" id="dom-travel">Travel
+		<div class="dom-content" id="dom-travel-content">
+			<img class="dom-image" src="travel/IMG_1418.JPG"></img>
+			<img class="dom-image" src="travel/IMG_1501.JPG"></img>
+			<img class="dom-image" src="travel/IMG_1561.JPG"></img>
+			<img class="dom-image" src="travel/IMG_1622.JPG"></img>
+			
+		</div>
+	</div>
+	
 </body>
 </html>
