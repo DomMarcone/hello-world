@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Visualizer</title>
+<meta charset='utf-8' />
+<style>
+body{
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#can{
+	position: absolute;
+	left: 0;
+	top: 0;
+	/*width: 100%;
+	height: 100%;*/
+}
+</style>
+<script>
+var c;
+var ctx;
+var frame = 0;
+var h = 0;
+
+function start()
+{
+c = document.getElementById('can');
+ctx = c.getContext('2d');
+c.width = window.innerWidth;
+c.height = window.innerHeight;
+
+h = c.width/4;
+
+setInterval(run, 1000/48);
+}
+
+function run()
+{
+var range = 12;
+var grd = ctx.createRadialGradient(c.width/2,c.height/2,0,c.width/2,c.height/2,c.height>c.width ? c.height : c.width);
+grd.addColorStop(0,'black');
+grd.addColorStop(1,'white');
+
+ctx.clearRect(0,0,c.width,c.height);
+
+ctx.fillStyle = grd;
+ctx.fillRect(0,0,c.width,c.height);
+
+ctx.strokeStyle = 'white';
+ctx.lineWidth = '2';
+ctx.beginPath();
+ctx.moveTo(h*Math.cos(frame+x)+c.width/2,h*Math.sin(frame+x)+c.height/2);
+for(var x = 0; x < range*2; x++)
+{
+var i = c.height>c.width ? c.height : c.width;
+h = i/2 + i/16 * Math.sin(frame/2);
+ctx.lineTo(h*Math.cos(frame+(x)*Math.PI/range)+c.width/2,h*Math.sin(frame+(x)*Math.PI/range)+c.height/2);
+h = i/2 + i/16 * Math.sin(frame/3);
+ctx.lineTo(-h*Math.cos(frame+(x+1)*Math.PI/range)+c.width/2,-h*Math.sin(frame+(x+0.5)*Math.PI/range)+c.height/2);
+}
+ctx.closePath();
+ctx.stroke();
+
+frame+=Math.PI/256;
+
+if(c.width!=window.innerWidth || c.height!=window.innerHeight)
+{
+c.width = window.innerWidth;
+c.height= window.innerHeight;
+}
+}
+
+</script>
+</head>
+<body onload='start()'>
+<canvas id='can'></canvas>
+</body>
+</html>

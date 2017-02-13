@@ -47,7 +47,18 @@ body
 
 function start()
 {
-	var c = document.get
+	var h = window.innerHeight - 250;
+	
+	for(var x = 0; x < 50; x ++)
+	{
+		try{
+			var c = document.getElementById("img-" + x);
+			c.style.height = h + "px";
+			c.style.width = h*4/3 + "px";	
+		}catch(err)
+		{}
+		
+	}
 	
 }
 
@@ -106,20 +117,28 @@ function expand(item)
 	
 	<div class="dom-category" onclick="expand(2);" id="dom-projects">Programming
 		<div class="dom-content" id="dom-projects-content">
+			<img class="dom-image" id="img-1" src="projects/canvasGame/icon.jpg"
+				target="_blank" onclick="window.open('projects/canvasGame/index.htm');">
+			<img class="dom-image" id="img-2" src="projects/shotCounter/icon.jpg"
+				target="_blank" onclick="window.open('projects/shotCounter/index.htm');">
 		</div>
 	</div>
 	
 	<div class="dom-category" onclick="expand(3);" id="dom-art">Art
 		<div class="dom-content" id="dom-art-content">
+			<img class="dom-image" id="img-10" src="art/img1.jpg">
+			<img class="dom-image" id="img-11" src="art/img2.jpg">
+			<img class="dom-image" id="img-12" src="art/img3.jpg">
+		
 		</div>
 	</div>
 	
 	<div class="dom-category" onclick="expand(4);" id="dom-travel">Travel
 		<div class="dom-content" id="dom-travel-content">
-			<img class="dom-image" src="travel/IMG_1418.JPG"></img>
-			<img class="dom-image" src="travel/IMG_1501.JPG"></img>
-			<img class="dom-image" src="travel/IMG_1561.JPG"></img>
-			<img class="dom-image" src="travel/IMG_1622.JPG"></img>
+			<img class="dom-image" id="img-20" src="travel/IMG_1418.JPG"></img>
+			<img class="dom-image" id="img-21" src="travel/IMG_1501.JPG"></img>
+			<img class="dom-image" id="img-22" src="travel/IMG_1561.JPG"></img>
+			<img class="dom-image" id="img-23" src="travel/IMG_1622.JPG"></img>
 			
 		</div>
 	</div>

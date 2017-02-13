@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<!--320-->
+<title>ShotCounter</title>
+<style>
+#display {
+	position: absolute;
+	width: 90%;
+	top: 17%;
+	left: 5%;
+	height: 65%;
+}
+
+.shotButton{
+	box-shadow: 0px 0px 8px black;
+	border: none;
+	color: white;
+	position: absolute;
+	font-size: 24px;
+	width: 42%;
+	top: 85%;
+	left: 5%;
+	height: 12%;
+	display: inline-block;
+}
+
+.shotButton:active{
+	box-shadow: none;
+}
+
+#shotMade{
+	background-color: #0808;
+}
+
+#shotMissed{
+	background-color: #8008;
+	left: 53%;
+}
+
+#shotClear{
+	background-color: #8808;
+	top: 2%;
+	width: 90%;
+	
+}
+
+@media screen and (min-width: 480px){
+	#display{
+		height: 80%;
+		width: 65%
+	}
+	
+	#shotMade{
+		left: 72%;
+		top: 17%;
+		width: 23%;
+		height: 38%;
+	}
+	
+	#shotMissed{
+		left: 72%;
+		top: 59%;
+		width: 23%;
+		height: 38%;
+	}
+	
+
+	
+}
+
+</style>
+<script>
+var shotTracker = [];
+
+function shotMade()
+{
+	shotTracker.push(true);
+	drawGraph();
+}
+
+function shotMissed()
+{
+	shotTracker.push(false);
+	drawGraph();
+}
+
+function shotClear()
+{
+	shotTracker = [];
+	drawGraph();
+}
+
+function drawGraph()
+{
+	var inner = "<rect width='100%' height='100%' style='fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0);' />";
+	
+	var shots = shotTracker.length;
+	
+	var scores = [];
+	
+	var divisions = shots;
+	
+	
+	
+	if(shots >= 20)divisions = shots/2;
+	//if(shots >= 40)divisions = shots/4;
+	if(shots >= 80)divisions = shots/4;
+	if(shots >= 160)divisions = shots/8;
+	if(shots >= 320)divisions = shots/16;
+	if(shots >= 640)divisions = 20;
+	
+	
+	var groupSize = parseInt( (shots/divisions) + 0.5);
+	
+	for(var x = 0; x <= divisions; x++)scores.push(0.0);
+	
+	for(var x = 0; x <= divisions; ++x)
+	{
+		var count = 0;
+		for(var y = 0; y <= groupSize; ++y )
+		{
+			if(shotTracker[y + (x * groupSize) ])scores[x]++;
+			count++;
+		}
+		scores[x] /= count;
+		
+	}
+	
+	inner += "<text x='0' y='15' fill='black'> 100% - " + shots + " Total Shots</text>"
+	//divisions = parseInt(divisions); //keeps graph in place
+	divisions--;
+	
+	for(var x = 1; x < (divisions+1); x++)
+	{
+		inner += "<line x1='" + ((x-1) * (100/divisions));
+		inner += "%' y1='" +    0.9 * ((-100.0 * scores[x-1]) + 110);
+		inner += "%' x2='" +    (x * (100/divisions));
+		inner += "%' y2='" +    0.9 * ((-100.0 * scores[x]) + 110);
+		inner += "%' style='stroke:rgb(0,255,128);stroke-width:4;' />";
+	}
+	
+	document.getElementById("display").innerHTML = inner;
+	//document.getElementById("debugArea").innerHTML = scores + "#" +shotTracker.length;
+}
+
+</script>
+</head>
+<body>
+
+<svg id="display" width="100%" height="100%">
+	<rect width="100%" height="100%" style="fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0);" />
+</svg>
+
+<button class="shotButton" id="shotMade"   onclick="shotMade()"  >Shot Made</button>
+<button class="shotButton" id="shotMissed" onclick="shotMissed()">Shot Missed</button>
+<button class="shotButton" id="shotClear"  onclick="shotClear()">Clear Shots</button>
+
+</body>
+</html>
