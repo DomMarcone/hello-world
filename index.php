@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
+<meta content="width=420 initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 <title>Dominic A. Marcone</title>
 <style>
 body
@@ -9,22 +10,31 @@ body
 	width: 100%;
 	margin: 0;
 	font-family: courier;
+	text-decoration: none;
+	overflow: hidden;
+}
+
+a
+{
+	text-decoration: none;
+	color: black;
 }
 
 .dom-category
 {
 	width: 99.5%;
-	transition-duration: 0.25s;
+	transition-duration: 0.5s;
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
 	border-style: solid;
-	border-width: 2px;
+	border-width: 2pt;
 	border-color: white;
 	background: #222;
 	color: white;
 	font-size: 20px;
 	text-shadow: 0 0 16px black;
+	position: static;
 }
 
 .dom-content
@@ -33,7 +43,19 @@ body
 	color: black;
 	/*scroll-direcion: horizontal;*/
 	white-space: nowrap;
-	overflow: auto;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	text-shadow: none;
+	-webkit-overflow-scrolling: touch;
+}
+
+.dom-vert-content
+{
+		white-space: normal;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		text-align: left;
+		margin-left: 20px;
 }
 
 .dom-image
@@ -42,24 +64,87 @@ body
 	/*width: 400px;*/
 }
 
+#img-display
+{
+	display:none;
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:10;
+	overflow: scroll;
+	background: #00000044;
+}
+
 </style>
 <script>
 
 function start()
 {
-	var h = window.innerHeight - 250;
+	collapseAll();
+	window.addEventListener("resize", function(event){
+		sizeUp();
+	});
 	
-	for(var x = 0; x < 50; x ++)
+	for(var x = 10; x < 50; x++)
+	{
+		try{
+			var c = document.getElementById("img-" + x);
+			c.addEventListener("click", function(event){
+				var imgDisplay = document.getElementById("img-display");
+				imgDisplay.style.display = "block";
+				imgDisplay.src = event.target.src;
+			});
+		}catch(err)
+		{}
+
+	}
+	
+	sizeUp();
+}
+
+function sizeUp()
+{
+	var h = window.innerHeight - 240;
+	
+	for(var x = 0; x < 50; x++)
 	{
 		try{
 			var c = document.getElementById("img-" + x);
 			c.style.height = h + "px";
-			c.style.width = h*4/3 + "px";	
+			c.style.width = h*4/3 + "px";
 		}catch(err)
 		{}
-		
 	}
 	
+	for(var x = 0; x < 10; x++)
+	{
+		try {
+			c = document.getElementById(getNameByNumber(x) + "-content");
+			c.style.height = h + "px";
+		}catch(err)
+		{}
+	}
+	
+	for(var x = 0; x < 10; x++)
+	{
+		try{
+			c = document.getElementById(getNameByNumber(x));
+			if(c.style.height != "40px")
+				c.style.height = (window.innerHeight-200)+ "px";
+		}catch(err)
+		{}
+	}
+	
+	var imgDisplay = document.getElementById("img-display");
+	if(window.innerWidth>window.innerHeight)
+	{
+		imgDisplay.style.width = window.innerWidth + "px";
+		imgDisplay.style.height = window.innerWidth*3/4 + "px";
+	}else
+	{
+		imgDisplay.style.height = window.innerHeight + "px";
+		imgDisplay.style.width = window.innerHeight*4/3 + "px";
+	}
 }
 
 function getNameByNumber(num)
@@ -88,6 +173,7 @@ function collapseAll()
 		y.style.height = "40px";
 		y.style.backgroundColor = "#222";
 		z.style.display = "none";
+		z.style.zIndex = "0";
 	}
 }
 
@@ -98,20 +184,54 @@ function expand(item)
 	var con = document.getElementById(name + "-content");
 	collapseAll();
 	cat.style.height = (window.innerHeight-200)+ "px";
-	cat.style.backgroundColor = "#666";
+	cat.style.backgroundColor = "#BBB";
 	con.style.display = "block";
+	con.style.zIndex = "1";
+	sizeUp();
 }
 
 </script>
 </head>
 <body onload="start()">
 	<div class="dom-category" onclick="expand(0);" id="dom-bio">Bio
-		<div class="dom-content" id="dom-bio-content">
+		<div class="dom-content dom-vert-content" id="dom-bio-content">
+			<h1>Marcone, Dominic</h1>
+			<h4><a href="mailto:dammarcone@yahoo.com">dammarcone@yahoo.com</a></h4>
+			<p>I am a programmer from Pittsburgh, seeking work in a professional 
+			software development enviornment in the DC area. By May, I will have 
+			an Associates Degree in Software Development from CCAC. My experience 
+			covers working	with various operating systems, integrated development 
+			enviornments and applications. Please view my page source!.
+			</p>
 		</div>
 	</div>
 	
 	<div class="dom-category" onclick="expand(1);" id="dom-skills">Skills
-		<div class="dom-content" id="dom-skills-content">
+		<div class="dom-content dom-vert-content" id="dom-skills-content">
+		
+		<ul>
+			<li><b>C</b> - started learning in 2007</li>
+			<li><b>Java</b> - started learning 2010</li>
+			<li><b>HTML, CSS, Javascript</b> - started 2014</li>
+		</ul>
+		
+		<ul>
+			<li><b>PowerPoint</b> - Advanced</li>
+			<li><b>Word</b> - Advanced</li>
+			<li><b>Excell</b> - Advanced</li>
+			<li><b>Access</b> - Proficient</li>
+			<li><b>Photoshop</b> - Advanced</li>
+			<li><b>Blender</b> - Advanced</li>
+		</ul>
+		
+		<ul>
+			<li><b>Windows</b> - Advanced</li>
+			<li><b>Mac</b> - Proficient</li>
+			<li><b>Various Linux Distro's</b> - Good</li>
+			<li><b>Android OS</b> - Proficient</li>
+			<li><b>iOS</b> - Advanced</li>
+		</ul>
+				
 		</div>
 	</div>
 	
@@ -126,6 +246,8 @@ function expand(item)
 			<img class="dom-image" id="img-3" src="projects/randomProjects/drawLines.jpg"
 				target="_blank" onclick="window.open('projects/randomProjects/drawLines.htm');" />
 		
+			<img class="dom-image" id="img-4" src="projects/randomProjects/moreCanvas.jpg"
+				target="_blank" onclick="window.open('projects/randomProjects/moreCanvas.htm');" />
 		
 			<img class="dom-image" id="img-9" src="projects/svgPong/icon.jpg"
 				target="_blank" onclick="window.open('projects/svgPong/game.htm');" />
@@ -137,6 +259,8 @@ function expand(item)
 			<img class="dom-image" id="img-10" src="art/img1.jpg" />
 			<img class="dom-image" id="img-11" src="art/img2.jpg" />
 			<img class="dom-image" id="img-12" src="art/img3.jpg" />
+			<img class="dom-image" id="img-13" src="art/img4.jpg" />
+			<img class="dom-image" id="img-14" src="art/img5.jpg" />
 		
 		</div>
 	</div>
@@ -147,9 +271,16 @@ function expand(item)
 			<img class="dom-image" id="img-21" src="travel/IMG_1501.JPG" />
 			<img class="dom-image" id="img-22" src="travel/IMG_1561.JPG" />
 			<img class="dom-image" id="img-23" src="travel/IMG_1622.JPG" />
+			<img class="dom-image" id="img-24" src="travel/DSC_0024.JPG" />
+			<img class="dom-image" id="img-25" src="travel/DSC_0013.JPG" />
+			<img class="dom-image" id="img-26" src="travel/FILE0034.JPG" />
+			<img class="dom-image" id="img-27" src="travel/DSC_0012.JPG" />
+			<img class="dom-image" id="img-28" src="travel/DSC_0182.JPG" />
 			
 		</div>
 	</div>
+	
+	<img id="img-display" onclick="document.getElementById('img-display').style.display='none';"/>
 	
 </body>
 </html>
