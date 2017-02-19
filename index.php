@@ -64,6 +64,37 @@ a
 	/*width: 400px;*/
 }
 
+.star
+{
+	position: absolute;
+}
+
+.years-2{
+	clip: rect(0px,256px,256px,0px);
+	transform: translate(0px,0);
+}
+
+.years-3{
+	clip: rect(0px, 512px, 256px, 256px);
+	transform: translate(-256px,0);
+}
+
+.years-4{
+	clip: rect(0px, 768px, 256px, 512px);
+	transform: translate(-512px,0);
+}
+
+.years-6{
+	clip: rect(0px, 1024px, 256px, 768px);
+	transform: translate(-768px,0);
+}
+
+.years-8{
+	clip: rect(0px, 1280px, 256px, 1024px);
+	transform: translate(-1024px,0);
+}
+
+
 #img-display
 {
 	display:none;
@@ -197,23 +228,28 @@ function expand(item)
 		<div class="dom-content dom-vert-content" id="dom-bio-content">
 			<h1>Marcone, Dominic</h1>
 			<h4><a href="mailto:dammarcone@yahoo.com">dammarcone@yahoo.com</a></h4>
-			<p>I am a programmer from Pittsburgh, seeking work in a professional 
-			software development enviornment in the DC area. By May, I will have 
-			an Associates Degree in Software Development from CCAC. My experience 
-			covers working	with various operating systems, integrated development 
-			enviornments and applications. Please view my page source!.
+			<p>
+			<?php
+				$file = fopen("bio.txt","r");
+				echo fread($file,filesize("bio.txt"));
+				fclose($file);
+			?>
 			</p>
 		</div>
 	</div>
 	
 	<div class="dom-category" onclick="expand(1);" id="dom-skills">Skills
 		<div class="dom-content dom-vert-content" id="dom-skills-content">
-		
 		<ul>
 			<li><b>C</b> - started learning in 2007</li>
 			<li><b>Java</b> - started learning 2010</li>
-			<li><b>HTML, CSS, Javascript</b> - started 2014</li>
+			<li><b>HTML, CSS, Javascript</b>- started 2014</li>
 		</ul>
+		<img src="stars.png" class="star years-2" />
+		<img src="stars.png" class="star years-3" />
+		<img src="stars.png" class="star years-4" />
+		<img src="stars.png" class="star years-6" /	>
+		<img src="stars.png" class="star years-8" />
 		
 		<ul>
 			<li><b>PowerPoint</b> - Advanced</li>
