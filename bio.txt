@@ -1,5 +1,12 @@
-I am a programmer from Pittsburgh, seeking work in a professional 
-software development enviornment in the DC area. By May, I will have 
-an Associates Degree in Software Development from CCAC. My experience 
-covers working	with various operating systems, integrated development 
-enviornments and applications. Please view my page source!.
+<p>I am a programmer from Pittsburgh, seeking work in a professional software development enviornment in the DC area.</p>
+
+<p>By May, I will have an Associates Degree in Software Development from CCAC. My experience covers working	with various operating systems, integrated development enviornments and applications.</p>
+
+<p>My first real programming projects were simple, mostly cli applicatoins around 2010. This was back when I only knew C, Assembly and a little C++. The first game I ever wrote was in C, with linked assembly functions for raw VGA output.</p>
+
+<video width="320" height="240">
+	<source src="art/domGame2010.mp4" type="video/mp4">
+	<source src="art/domGame2010.webm" type="video/webm">
+</video>
+
+<b>Please view my page source!.</b>
